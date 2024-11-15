@@ -64,21 +64,10 @@ function App() {
       <AvatarImage src="https://github.com/shadcn.png" />
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>
-    <h1>Controle de Inquilinos</h1>
+    <h1 className="text-center">Controle de Inquilinos</h1>
     <Button onClick={handleDelinquencyReport}>Ver Relatório de Inadimplência</Button>
     {delinquencyReport && (
-      <>
-        <CustomPieChart title={"Relatório de Inadimplência"} deliquents={delinquencyReport.tenants.length} data={[{ tenant: "Inadimplentes", percentage: delinquencyReport.percentage, fill: "var(--color-inadimplentes)" }, { tenant: "Adimplentes", percentage: 100 - delinquencyReport.percentage, fill: "var(--color-adimplentes)" },]} />
-        <ul>
-          {delinquencyReport.tenants.map((tenant) => (
-            <li key={tenant.id}>
-              {`${tenant.name} - ${tenant.delinquencyTime} meses de atraso - R$${tenant.rentAmount}`}
-            </li>
-          ))}
-        </ul>
-      </>
-
-
+      <CustomPieChart title={"Relatório de Inadimplência"} tenants={delinquencyReport.tenants} data={[{ label: "Inadimplentes", percentage: delinquencyReport.percentage, fill: "var(--color-inadimplentes)" }, { label: "Adimplentes", percentage: 100 - delinquencyReport.percentage, fill: "var(--color-adimplentes)" },]} />
     )}
     <DataTable columns={columns} data={data} />
   </div>);

@@ -19,6 +19,14 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+
 import { Input } from "@/components/ui/input"
 import React from "react"
 
@@ -33,9 +41,9 @@ export function DataTable<TData, TValue>({
     data,
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
-const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-)
+    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+        []
+    )
 
     const table = useReactTable({
         data,
@@ -59,8 +67,45 @@ const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
                     onChange={(event) =>
                         table.getColumn("name")?.setFilterValue(event.target.value)
                     }
-                    className="max-w-sm"
+                    className="max-w-sm mx-4"
                 />
+                <Input
+                    placeholder="Filtrar por CPF"
+                    value={(table.getColumn("cpf")?.getFilterValue() as string) ?? ""}
+                    onChange={(event) =>
+                        table.getColumn("cpf")?.setFilterValue(event.target.value)
+                    }
+                    className="max-w-sm mx-4"
+                />
+                <Select 
+                    onValueChange={(value) =>
+                        table.getColumn("size")?.setFilterValue(value === " " ? null : value)
+                    }
+                >
+                    <SelectTrigger className="w-[180px] mx-4">
+                        <SelectValue placeholder="Tamanho" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value=" ">---</SelectItem>
+                        <SelectItem value="Grande">Grande</SelectItem>
+                        <SelectItem value="Medio">Médio</SelectItem>
+                        <SelectItem value="Pequeno">Pequeno</SelectItem>
+                    </SelectContent>
+                </Select>
+                <Select
+                    onValueChange={(value) =>
+                        table.getColumn("isDelinquent")?.setFilterValue(value === " " ? null : value)
+                    }
+                >
+                    <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Status de Inadimplencia" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value=" ">---</SelectItem>
+                        <SelectItem value={true}>Sim</SelectItem>
+                        <SelectItem value={false}>Nao</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
             <div className="rounded-md border">
                 <Table>

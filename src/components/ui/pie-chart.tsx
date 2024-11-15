@@ -6,6 +6,7 @@ import { Label, Pie, PieChart } from "recharts"
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -15,6 +16,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import { Tenant } from "@/data/tenants"
 
 const chartConfig = {
   adimplentes: {
@@ -27,7 +29,7 @@ const chartConfig = {
   }
 } satisfies ChartConfig
 
-export function CustomPieChart({title,data, deliquents}:{title:string, data: {tenant: string, percentage: number, fill: string}[], deliquents: number}) {
+export function CustomPieChart({title,data, tenants}:{title:string, data: {label: string, percentage: number, fill: string}[], tenants: Tenant[]}) {
   
   return (
     <Card className="flex flex-col">
@@ -66,7 +68,7 @@ export function CustomPieChart({title,data, deliquents}:{title:string, data: {te
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {deliquents}
+                          {tenants.length}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
@@ -83,7 +85,17 @@ export function CustomPieChart({title,data, deliquents}:{title:string, data: {te
             </Pie>
           </PieChart>
         </ChartContainer>
+       
       </CardContent>
+      <CardFooter className="flex-col gap-2 text-sm">
+      <ul>
+          {tenants.map((tenant) => (
+            <li key={tenant.id}>
+              {`${tenant.name} - ${tenant.delinquencyTime} meses de atraso - R$${tenant.rentAmount}`}
+            </li>
+          ))}
+        </ul>
+      </CardFooter>
     </Card>
   )
 }
