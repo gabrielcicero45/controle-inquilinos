@@ -29,8 +29,8 @@ const chartConfig = {
   }
 } satisfies ChartConfig
 
-export function CustomPieChart({title,data, tenants}:{title?:string, data: {label: string, percentage: number, fill: string}[], tenants?: Tenant[]}) {
-  
+export function CustomPieChart({ title, data, tenants, damage, income }: { title?: string, data: { label: string, percentage: number, fill: string }[], tenants?: Tenant[], damage: number, income: number }) {
+
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
@@ -87,12 +87,18 @@ export function CustomPieChart({title,data, tenants}:{title?:string, data: {labe
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-      <ul>
+        <ul className="list-disc">
           {tenants?.map((tenant) => (
             <li key={tenant.cpf}>
               {`${tenant.name} - ${tenant.delinquencyTime} meses de atraso - Saldo Devedor R$${tenant.rentAmount * tenant.delinquencyTime}`}
             </li>
           ))}
+          <li>
+            {`Entrada atual: R$ ${income}`}
+          </li>
+          <li>
+            {`Prejuízo: R$ ${damage}`}
+          </li>
         </ul>
       </CardFooter>
     </Card>

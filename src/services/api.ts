@@ -13,19 +13,28 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export const fetchTenants = async () => {
-    const response = await api.get("/tenants");
-    return response.data;
-  };
+export const getCurrentUser = async (token) => {
+  const response = await api.get("/auth/me",{
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
 
-  export const removeTenant = async (id) => {
-    const response = await api.delete(`/tenants/${id}`);
-    return response.data;
-  };
+export const fetchTenants = async () => {
+  const response = await api.get("/tenants");
+  return response.data;
+};
+
+export const removeTenant = async (id) => {
+  const response = await api.delete(`/tenants/${id}`);
+  return response.data;
+};
 
 export const fetchDelinquencyReport = async () => {
-    const response = await api.get("/tenants/delinquencyReport");
-    return response.data;
-  };
+  const response = await api.get("/tenants/delinquencyReport");
+  return response.data;
+};
 
 export default api;

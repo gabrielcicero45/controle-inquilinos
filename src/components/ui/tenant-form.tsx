@@ -19,14 +19,6 @@ const TenantForm = () => {
     rentAmount: 0,
   });
 
-  const formatCpf = (value) => {
-    return value
-        .replace(/\D/g, '')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-  };
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     
