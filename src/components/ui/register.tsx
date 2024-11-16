@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import api from "@/services/api";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 
 const Register = () => {
@@ -20,15 +24,21 @@ const Register = () => {
       setMessage(error.response?.data.message || "Erro ao registrar.");
     }
   };
+  const navigate = useNavigate();
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Registrar</h1>
+    <div className="max-w-md mx-auto mt-10">
+      <div className="flex items-center justify-start mb-6">
+      <a onClick={()=> navigate('/login')} className="mr-5"><ArrowLeft /></a>
+      <h2 className="text-2xl font-semibold text-center ml-5">Cadastre-se</h2>
+      </div>
+     
       {message && <p>{message}</p>}
       <form onSubmit={handleRegister}>
         <div>
           <label>Nome:</label>
-          <input
+          <Input
+            className='mb-4'
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -37,7 +47,8 @@ const Register = () => {
         </div>
         <div>
           <label>Email:</label>
-          <input
+          <Input
+            className='mb-4'
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -46,14 +57,15 @@ const Register = () => {
         </div>
         <div>
           <label>Senha:</label>
-          <input
+          <Input
+            className='mb-4'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        <button type="submit">Registrar</button>
+        <Button type="submit">Registrar</Button>
       </form>
     </div>
   );

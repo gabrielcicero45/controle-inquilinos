@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "@/services/api";
 import { Tenant } from "@/data/tenants";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 const TenantForm = () => {
   const navigate = useNavigate();
@@ -61,7 +63,11 @@ const TenantForm = () => {
 
   return (
     <div className="max-w-lg mx-auto p-4">
-      <h2 className="text-xl font-bold mb-4">Criar Inquilino</h2>
+      <div className="flex items-center justify-start mb-6">
+      <a onClick={()=> navigate('/dashboard')} className="mr-5"><ArrowLeft /></a>
+      <h2 className="text-xl font-bold">Criar Inquilino</h2>
+      </div>
+      
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Nome</label>
@@ -139,9 +145,9 @@ const TenantForm = () => {
           />
         </div>
 
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
+        <Button type="submit" className="w-full text-white py-2 rounded-md">
           Criar Inquilino
-        </button>
+        </Button>
       </form>
     </div>
   );

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import api from '@/services/api';
+import { Input } from '@/components/ui/input';
 
 function Login() {
     const navigate = useNavigate();
@@ -32,20 +33,20 @@ function Login() {
     return (
         <div className="max-w-md mx-auto mt-10">
             <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
-            <p>Usuário autenticado? {isAuthenticated ? "Sim" : "Não"}</p>
+
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className='mb-4'>
                     <label>Email:</label>
-                    <input
+                    <Input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </div>
-                <div>
+                <div className='mb-4'>
                     <label>Senha:</label>
-                    <input
+                    <Input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -53,11 +54,12 @@ function Login() {
                     />
                 </div>
                 {error && <p style={{ color: "red" }}>{error}</p>}
-                <button type="submit">Entrar</button>
+                <div className="flex p-4 items-center justify-center">
+                <Button type="submit" className='mr-4'>Entrar</Button> 
+                <Button onClick={() => navigate("/register")}>Cadastre-se</Button>
+                </div>
+                
             </form>
-
-            <Button onClick={() => navigate("/register")}>Cadastre-se</Button>
-
         </div>
     );
 }
