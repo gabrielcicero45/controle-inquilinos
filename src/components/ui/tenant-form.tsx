@@ -5,6 +5,7 @@ import api from "@/services/api";
 import { Tenant } from "@/data/tenants";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import CpfInput from "./cpf-input";
 
 const TenantForm = () => {
   const navigate = useNavigate();
@@ -13,10 +14,18 @@ const TenantForm = () => {
     name: "",
     cpf: "",
     kitnetSize: "pequeno",
-    isDelinquent: true,
+    isDelinquent: false,
     delinquencyTime: 0,
     rentAmount: 0,
   });
+
+  const formatCpf = (value) => {
+    return value
+        .replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -83,14 +92,7 @@ const TenantForm = () => {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">CPF</label>
-          <input
-            type="text"
-            name="cpf"
-            value={tenantData.cpf}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 border rounded-md"
-            required
-          />
+          <CpfInput value={tenantData.cpf} onChange={(cpf) => setTenantData((prevState) => ({ ...prevState, cpf }))}/>
         </div>
 
         <div className="mb-4">
