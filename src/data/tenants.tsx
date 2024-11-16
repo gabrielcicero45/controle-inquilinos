@@ -11,12 +11,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useNavigate } from "react-router-dom";
+import { removeTenant } from "@/services/api";
 
 export type Tenant = {
-    id: number,
     name: string,
     cpf: string,
-    size: string,
+    kitnetSize: string,
     isDelinquent: boolean,
     delinquencyTime: number,
     rentAmount: number,
@@ -31,7 +32,7 @@ export const columns: ColumnDef<Tenant>[] = [
         header: "CPF",
     },
     {
-        accessorKey: "size",
+        accessorKey: "kitnetSize",
         header: "Tamanho",
     },
     {
@@ -55,8 +56,9 @@ export const columns: ColumnDef<Tenant>[] = [
     },
     {
         id: "actions",
-        cell: () => {
-     
+        cell: ({ row }) => {
+          const tenantId = row.original._id;
+          const navigate = useNavigate();
           return (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -66,10 +68,10 @@ export const columns: ColumnDef<Tenant>[] = [
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuLabel>Ações</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Editar Inquilino</DropdownMenuItem>
-                <DropdownMenuItem>Remover Inquilino</DropdownMenuItem>
+                <DropdownMenuItem onClick={()=> navigate(`/tenant/edit/${tenantId}`)}>Editar Inquilino</DropdownMenuItem>
+                <DropdownMenuItem onClick={()=> removeTenant(tenantId)}>Remover Inquilino</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )

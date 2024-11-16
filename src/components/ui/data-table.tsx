@@ -27,6 +27,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
+import { Button } from "@/components/ui/button"
+
 import { Input } from "@/components/ui/input"
 import React from "react"
 
@@ -79,7 +81,7 @@ export function DataTable<TData, TValue>({
                 />
                 <Select 
                     onValueChange={(value) =>
-                        table.getColumn("size")?.setFilterValue(value === " " ? null : value)
+                        table.getColumn("kitnetSize")?.setFilterValue(value === " " ? null : value)
                     }
                 >
                     <SelectTrigger className="w-[180px] mx-4">
@@ -87,9 +89,9 @@ export function DataTable<TData, TValue>({
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value=" ">---</SelectItem>
-                        <SelectItem value="Grande">Grande</SelectItem>
-                        <SelectItem value="Medio">Médio</SelectItem>
-                        <SelectItem value="Pequeno">Pequeno</SelectItem>
+                        <SelectItem value="grande">Grande</SelectItem>
+                        <SelectItem value="médio">Médio</SelectItem>
+                        <SelectItem value="pequeno">Pequeno</SelectItem>
                     </SelectContent>
                 </Select>
                 <Select
@@ -97,7 +99,7 @@ export function DataTable<TData, TValue>({
                         table.getColumn("isDelinquent")?.setFilterValue(value === " " ? null : value)
                     }
                 >
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="mx-4">
                         <SelectValue placeholder="Status de Inadimplencia" />
                     </SelectTrigger>
                     <SelectContent>
@@ -144,7 +146,7 @@ export function DataTable<TData, TValue>({
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
+                                    Sem resultados.
                                 </TableCell>
                             </TableRow>
                         )}
